@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextFieldWdgt extends StatelessWidget {
-  TextFieldWdgt({super.key,required this.hint, required this.name,required this.controller});
+  TextFieldWdgt(
+      {super.key,
+      required this.hint,
+      required this.name,
+      required this.controller,
+     });
   String name;
   String hint;
   TextEditingController controller;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +31,17 @@ class TextFieldWdgt extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             SizedBox(
-              height: 8,
+              height: 8.h,
             ),
             SizedBox(
-              height: 50,
-              width: 331,
+              height: 50.h,
+              width: 331.w,
               child: TextFormField(
+               
                 controller: controller,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(10.r)),
                     hintText: hint),
               ),
             ),

@@ -10,16 +10,16 @@ String productsToJson(EmployeDataModel? data) => json.encode(data!.toJson());
 
 class EmployeDataModel {
     EmployeDataModel({
-        this.age,
-        this.name,
-        this.experience,
-        this.position,
+       required this.age,
+       required this.name,
+       required this.experience,
+       required this.position,
     });
 
-    int? age;
-    String? name;
-    String? experience;
-    String? position;
+    int age;
+    String name;
+    int experience;
+    String position;
 
     factory EmployeDataModel.fromJson(Map<String, dynamic> json) => EmployeDataModel(
         age: json["age"],

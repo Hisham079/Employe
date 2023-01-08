@@ -1,30 +1,37 @@
-import 'package:employe_project/home/view/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../home/view/homePage.dart';
 import '../../signup/view/widget/button_widget.dart';
 import '../../signup/view/widget/text_field.dart';
 import '../bloc/signin_bloc.dart';
 
-class SigninPage extends StatelessWidget {
+class SigninPage extends StatefulWidget {
   SigninPage({super.key});
+
+  @override
+  State<SigninPage> createState() => _SigninPageState();
+}
+
+class _SigninPageState extends State<SigninPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  TextEditingController _loginEmail = TextEditingController(),
+      _loginPassword = TextEditingController();
+  final auth_bloc = SigninBloc();
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _loginEmail = TextEditingController(),
-        _loginPassword = TextEditingController();
-    final auth_bloc = SigninBloc();
     return BlocProvider(
       create: (context) => auth_bloc,
       child: BlocListener<SigninBloc, SigninState>(
         listener: (context, state) {
-          if (state is LoginSuccess) {
-            print('successowedosjf');
+          if (state is LoginSucces) {
+            //print('successowedosjf');
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -37,7 +44,7 @@ class SigninPage extends StatelessWidget {
         },
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Signin'),
+            title: Text('Sign in'),
             backgroundColor: Color.fromARGB(255, 31, 73, 107),
           ),
           body: SingleChildScrollView(
@@ -58,36 +65,38 @@ class SigninPage extends StatelessWidget {
                   name: 'Email',
                   hint: 'Enter your email',
                 ),
-                TextFieldWdgt(
-                  controller: _loginPassword,
-                  name: 'Password',
-                  hint: 'Create a password',
+                Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: Text(
+                    'Password',
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: SizedBox(
+                    height: 50.h,
+                    width: 331.w,
+                    child: TextFormField(
+                      obscureText: true,
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      controller: _loginPassword,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.r)),
+                          hintText: 'Enter your password'),
+                    ),
+                  ),
                 ),
                 GestureDetector(
-                  onTap: () async {
-                    try {
-                      await _auth.signInWithEmailAndPassword(
-                          email: _loginEmail.text.toString(),
-                          password: _loginPassword.text.toString());
-                      if (_auth.currentUser != null) {
-                        return print('Login success');
-                      } else {
-                        return print('failed');
-                      }
-                      //(email.toString()+"loginsuccess");
-
-                      //  (LoginSuccess());
-                    } on FirebaseAuthException catch (e) {
-                      print(e.toString());
-                      (_loginEmail.toString() + "loginsuccess");
-                      (_loginPassword.toString() + "loginsuccess");
-
-                      //   (LoginFailed(error_message: e.code));
-                    }
-
-                    // auth_bloc.add(UserLoginEvent(
-                    //     email: _loginEmail.text.trim().toString(),
-                    //     password: _loginPassword.text.trim().toString()));
+                  onTap: () {
+                    auth_bloc.add(UserLoginEvent(
+                        email: _loginEmail.text,
+                        password: _loginPassword.text));
                   },
                   child: BtnWdgt(
                     name: 'Login account',

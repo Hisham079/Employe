@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BtnWdgt extends StatelessWidget {
@@ -21,14 +22,14 @@ class BtnWdgt extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 5),
         child: Container(
-            height: 40,
-            width: 333,
+            height: 40.h,
+            width: 333.w,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10.r),
                 color: clr,
                 boxShadow: [
                   BoxShadow(
-                      blurRadius: 12,
+                      blurRadius: 12.r,
                       color: Color.fromARGB(255, 178, 177, 177))
                 ]),
             child: Center(
@@ -36,7 +37,7 @@ class BtnWdgt extends StatelessWidget {
               name,
               style: GoogleFonts.laila(
 
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w500,
                   color: Colors.white),
             ))),

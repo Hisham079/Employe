@@ -3,14 +3,14 @@ part of 'authentication_bloc.dart';
 
 abstract class AuthenticationEvent {}
 
-class UserRegisterEvent extends AuthenticationEvent {
+class UserRegisterEvent extends SigninEvent {
   UserRegisterEvent(
       {required this.name,
-      required this.mobile_no,
+      required this.mobileNo,
       required this.email,
       required this.password});
   String name;
-  String mobile_no;
+  String mobileNo;
   String email;
   String password;
 }
